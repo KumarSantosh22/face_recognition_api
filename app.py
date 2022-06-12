@@ -19,12 +19,13 @@ def home():
 @app.route('/api/v1/facematch', methods=['GET', 'POST'])
 # @cross_origin(origin='*',headers=['Content-Type','Authorization'])
 def face_match():
-    if request.method == 'POST':
-        content = request.json
-        res = faceMatch(srcFile=content['fileData1'], destFile=content['fileData2'])
-        return res
-    result = faceMatch("D:\WS-Santosh\SampleImages/1.jpg", "D:\WS-Santosh\SampleImages/1.jpg")
-    return jsonify(result)
+    try:
+        if request.method == 'POST':
+            content = request.json
+            res = faceMatch(srcFile=content['fileData1'], destFile=content['fileData2'])
+            return res
+    except:
+        return { 'error': ' Some error ocuured while processing. Try again...'}
 
 
 if __name__ =='__main__':
